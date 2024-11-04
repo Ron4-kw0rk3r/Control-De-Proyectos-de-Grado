@@ -1,0 +1,12 @@
+.hidden {
+    display: none;
+}
+
+#customAlert {
+    z-index: 1000; /* Asegúrate de que el modal esté por encima de otros elementos */
+    backdrop-filter: blur(10px); /* Añade un efecto de desenfoque */
+    background-color: rgba(0, 0, 0, 0.5); /* Añade un color de fondo semitransparente */
+    border-radius: 10px; /* Añade bordes redondeados */
+    padding: 20px; /* Añade un poco de espacio interno */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Añade una sombra para darle profundidad */
+}

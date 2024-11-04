@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Redirección a SAF Usalesiana para autenticación">
+    <title>Redirección a SAF Usalesiana</title>
+    <script>
+        // Redirigir automáticamente a la página de login de SAF Usalesiana
+        window.onload = function() {
+            window.location.href = "https://saf.usalesiana.edu.bo/frida/aa/log/";
+        }
+    </script>
+</head>
+<body>
+    <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <h1 class="text-3xl font-light text-gray-800 mb-4">Redirigiendo a SAF Usalesiana...</h1>
+        <p class="text-gray-600 mt-2 text-xl mb-8">Por favor, espere mientras lo redirigimos a la página de autenticación.</p>
+        <div class="relative w-24 h-24">
+            <svg class="absolute top-0 left-0 w-full h-full" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" stroke="#e2e8f0" stroke-width="10" fill="none" />
+                <circle cx="50" cy="50" r="45" stroke="#4caf50" stroke-width="10" fill="none" stroke-dasharray="282.6" stroke-dashoffset="282.6">
+                    <animate attributeName="stroke-dashoffset" from="282.6" to="0" dur="6s" repeatCount="1" />
+                </circle>
+            </svg>
+        </div>
+    </div>
+</body>
+</body>
+</html>

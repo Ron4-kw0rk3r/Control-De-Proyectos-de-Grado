@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>cspgAdmin</title>
+</head>
+<body class="bg-white flex flex-col items-center pt-20 pl-56 ">
+
+
+    <!-- Sidebar -->
+    <div class="w-[1440px] h-[2740px] flex w-full h-full">
+        <div class="w-[300px] h-[2740px] py-3 bg-gray-100 flex flex-col items-center">
+          <div class="w-full p-4 flex items-center gap-3">
+            <div class="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center">
+              <div class="w-6 text-center text-black text-[15px] font-normal leading-6">😃</div>
+            </div>
+            <div class="flex-1 text-black text-[16px] font-medium leading-5">Projects Grade</div>
+          </div>
+          <div class="w-full p-4 flex items-center gap-3">
+            <div class="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center">
+              <div class="w-6 text-center text-black text-[15px] font-normal leading-6">📊</div>
+            </div>
+            <div class="flex-1 text-black text-[16px] font-medium leading-5">Settings</div>
+          </div>
+          <div class="w-full p-4 flex items-center gap-3">
+            <div class="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center">
+              <div class="w-6 text-center text-black text-[15px] font-normal leading-6">📈</div>
+            </div>
+            <div class="flex-1 text-black text-[16px] font-medium leading-5">Telemetry</div>
+          </div>
+          <div class="w-full p-4 flex items-center gap-3">
+            <div class="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center">
+              <div class="w-6 text-center text-black text-[15px] font-normal leading-6">⚙️</div>
+            </div>
+            <div class="flex-1 text-black text-[16px] font-medium leading-5">Full Settings</div>
+          </div>
+          <div class="w-full p-4 flex items-center gap-3">
+            <div class="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center">
+              <div class="w-6 text-center text-black text-[15px] font-normal leading-6">🚪</div>
+            </div>
+            <div class="flex-1 text-black text-[16px] font-medium leading-5">Cerrar Sesión</div>
+          </div>
+        </div>
+
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col items-center">
+        <div class="w-full p-15 bg-black bg-opacity-60 flex items-center gap-15">
+          <div class="w-[1220px] h-0 border border-gray-200"></div>
+          <div class="flex-1 flex flex-col items-center gap-6">
+            <div class="w-[520px] text-center text-white text-[40px] font-bold leading-[48px]">Welcome to the Grading System</div>
+            <div class="w-[520px] text-center text-white text-[16px] font-normal leading-6">Manage grades efficiently</div>
+            <div class="flex flex-col items-start gap-3">
+              <div class="h-12 p-3 bg-black rounded-lg flex items-center justify-center">
+                <div class="text-white text-[16px] font-medium leading-6">Get Started</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full p-15 flex items-center gap-15">
+          <div class="w-[1220px] h-0 border border-gray-200"></div>
+          <div class="flex-1 flex flex-col items-start gap-6">
+            <div class="w-full text-black text-[40px] font-bold leading-[48px]">Submit Grade</div>
+            <div class="w-full text-black text-[16px] font-normal leading-6">Enter student grades below</div>
+          </div>
+          <div class="flex-1 flex flex-col items-start gap-10">
+            <div class="w-full flex items-start gap-20">
+              <div class="w-[520px] flex flex-col items-start gap-1">
+                <div class="w-full text-black text-[14px] font-medium leading-5">Student Name</div>
+                <div class="w-full p-2 bg-white rounded-md border border-gray-200 flex items-center gap-1">
+                  <div class="flex-1 h-5 text-gray-500 text-[14px] font-normal leading-5">Enter name</div>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex items-start gap-20">
+              <div class="w-[520px] flex flex-col items-start gap-1">
+                <div class="w-full text-black text-[14px] font-medium leading-5">Grade</div>
+                <div class="w-full p-2 bg-white rounded-md border border-gray-200 flex items-center gap-1">
+                  <div class="flex-1 h-5 text-gray-500 text-[14px] font-normal leading-5">Enter grade</div>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col items-start gap-3">
+              <div class="h-12 p-3 bg-black rounded-lg flex items-center justify-center">
+                <div class="text-white text-[16px] font-medium leading-6">Submit</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full h-[900px] p-15 flex flex-col items-center gap-15">
+          <div class="w-full flex items-center gap-15">
+            <div class="flex-1 flex flex-col items-center gap-6">
+              <div class="w-[520px] text-center text-black text-[40px] font-bold leading-[48px]">Grade Metrics</div>
+              <div class="w-[520px] text-center text-black text-[16px] font-normal leading-6">View performance statistics</div>
+            </div>
+          </div>
+          <div class="w-full h-[124px] flex flex-col items-center gap-10">
+            <div class="w-full flex items-start gap-5">
+              <div class="flex-1 p-4 rounded-md border border-gray-200 flex flex-col items-start gap-1">
+                <div class="w-full text-gray-500 text-[16px] font-normal leading-6">Average Grade</div>
+                <div class="text-black text-[28px] font-medium leading-9">85%</div>
+                <div class="text-black text-[16px] font-normal leading-6">+5%</div>
+              </div>
+              <div class="flex-1 p-4 rounded-md border border-gray-200 flex flex-col items-start gap-1">
+                <div class="w-full text-gray-500 text-[16px] font-normal leading-6">Pass Rate</div>
+                <div class="text-black text-[28px] font-medium leading-9">90%</div>
+                <div class="text-black text-[16px] font-normal leading-6">-2%</div>
+              </div>
+            </div>
+          </div>
+          <div class="w-full h-[440px] flex flex-col items-start gap-1">
+            <div class="w-full flex-1 p-5 rounded-md border border-gray-200 flex flex-col items-start gap-3">
+              <div class="w-full text-black text-[20px] font-medium leading-7">Grade Distribution</div>
+              <div class="w-full text-gray-500 text-[16px] font-normal leading-6">Number of Students</div>
+              <div class="w-[1060px] h-[288px] relative">
+                <div class="w-[1060px] h-0 absolute border border-dotted border-gray-200"></div>
+                <div class="w-[1060px] h-0 absolute top-[72px] border border-dotted border-gray-200"></div>
+                <div class="w-[1060px] h-0 absolute top-[144px] border border-dotted border-gray-200"></div>
+                <div class="w-[1060px] h-0 absolute top-[216px] border border-dotted border-gray-200"></div>
+                <div class="w-[1060px] h-0 absolute top-[288px] border border-gray-200"></div>
+                <div class="w-[94.07px] h-[235.80px] absolute left-[18.86px] top-[52.20px] bg-gray-500"></div>
+                <div class="w-[94.07px] h-[169.20px] absolute left-[173.40px] top-[118.80px] bg-gray-500"></div>
+                <div class="w-[94.07px] h-[115.20px] absolute left-[327.93px] top-[172.80px] bg-gray-500"></div>
+                <div class="w-[94.07px] h-[176.40px] absolute left-[482.47px] top-[111.60px] bg-gray-500"></div>
+                <div class="w-[94.07px] h-[136.80px] absolute left-[637.01px] top-[151.20px] bg-gray-500"></div>
+                <div class="w-[94.07px] h-[210.60px] absolute left-[791.54px] top-[77.40px] bg-gray-500"></div>
+                <div class="w-[94.07px] h-[156.60px] absolute left-[946.08px] top-[131.40px] bg-gray-500"></div>
+              </div>
+              <div class="w-full text-right text-gray-500 text-[16px] font-normal leading-6">Grades</div>
+            </div>
+          </div>
+          <div class="w-[1220px] h-0 border border-gray-200"></div>
+        </div>
+        <div class="w-full p-15 flex items-center gap-15">
+          <div class="w-[1220px] h-0 border border-gray-200"></div>
+          <div class="flex-1 flex flex-col items-start gap-6">
+            <div class="w-full text-black text-[40px] font-bold leading-[48px]">Recent Grades</div>
+            <div class="w-full text-black text-[16px] font-normal leading-6">Latest student grades</div>
+          </div>
+          <div class="flex-1 flex flex-col items-center gap-10">
+            <div class="w-full flex items-start gap-10">
+              <div class="flex-1 py-3 flex flex-col items-center gap-5">
+                <div class="w-[100px] h-[100px] bg-gray-100 rounded-full flex items-center justify-center">
+                  <div class="w-[100px] text-center text-black text-[62.50px] font-normal leading-[100px]">📚</div>
+                </div>
+                <div class="w-full h-[60px] flex flex-col items-start gap-2">
+                  <div class="w-full text-center text-black text-[20px] font-normal leading-7">Mathematics</div>
+                  <div class="w-full text-center text-gray-500 text-[16px] font-normal leading-6">Grade: A</div>
+                </div>
+                <div class="w-full text-center text-black text-[28px] font-medium leading-9">Student Name: John</div>
+              </div>
+              <div class="flex-1 py-3 flex flex-col items-center gap-5">
+                <div class="w-[100px] h-[100px] bg-gray-100 rounded-full flex items-center justify-center">
+                  <div class="w-[100px] text-center text-black text-[62.50px] font-normal leading-[100px]">📗</div>
+                </div>
+                <div class="w-full h-[60px] flex flex-col items-start gap-2">
+                  <div class="w-full text-center text-black text-[20px] font-normal leading-7">Science</div>
+                  <div class="w-full text-center text-gray-500 text-[16px] font-normal leading-6">Grade: B</div>
+                </div>
+                <div class="w-full text-center text-black text-[28px] font-medium leading-9">Student Name: Sarah</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full p-15 flex items-center gap-15">
+          <div class="w-[1220px] h-0 border border-gray-200"></div>
+          <div class="flex-1 h-[300px] py-1 flex items-start">
+            <div class="w-[1100px] py-[138px] px-4 bg-gray-200 bg-opacity-50 rounded-md flex flex-col items-center gap-[126px]">
+              <div class="w-[1068px] h-4 text-center text-black text-[12px] font-normal leading-4">Stay organized with our grading system</div>
+              <div class="w-full flex items-center gap-1">
+                <div class="w-5 h-1 bg-white rounded-full"></div>
+                <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
+                <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
+                <div class="w-1 h-1 bg-gray-500 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full p-15 flex items-center gap-15">
+          <div class="w-[249px] flex items-center gap-15">
+            <div class="w-[249px] text-center text-black text-[20px] font-normal leading-7">© 2022 Grading System Inc.</div>
+          </div>
+        </div>
+      </div>
+</body>
