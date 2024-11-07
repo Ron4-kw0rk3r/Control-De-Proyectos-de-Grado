@@ -72,7 +72,11 @@ public class UsuarioService {
             usuario.setUltimoAcceso(LocalDateTime.now());
             usuarioRepository.save(usuario);
             
-            activityLogService.logActivity(usuario.getId(), "LOGIN", "Inicio de sesión exitoso");
+            activityLogService.logActivity(usuario.getId(), "LOGIN", "Inicio de sesión exitoso" , "defaultip", "defaultUserAgent");
+            activityLogService.logActivity(usuario.getId(), "CREAR_USUARIO", "Creación de usuario ROOT_ADMIN", "defaultIp", "defaultUserAgent");
+
+            activityLogService.logActivity(usuario.getId(), "CREAR_USUARIO", "Creación de usuario", "defaultIp", "defaultUserAgent");
+
             
             return Optional.of(usuario);
         }
@@ -101,7 +105,7 @@ public class UsuarioService {
         rootAdmin.setUltimoAcceso(LocalDateTime.now());
         
         Usuario saved = usuarioRepository.save(rootAdmin);
-        activityLogService.logActivity(saved.getId(), "CREAR_USUARIO", "Creación de usuario ROOT_ADMIN");
+        activityLogService.logActivity(saved.getId(), "CREAR_USUARIO", "Creación de usuario ROOT_ADMIN", "defaultIp", "defaultUserAgent");
         return saved;
     }
 
@@ -126,7 +130,7 @@ public class UsuarioService {
         
         Usuario saved = usuarioRepository.save(usuario);
         activityLogService.logActivity(saved.getId(), "CREAR_USUARIO", 
-            String.format("Creación de usuario %s: %s", rol, email));
+            String.format("Creación de usuario %s: %s", rol, email), "defaultIp", "defaultUserAgent");
         return saved;
     }
 
@@ -149,6 +153,9 @@ public class UsuarioService {
             case "612" -> "Ingeniería Comercial";
             case "613" -> "Derecho";
             case "614" -> "Psicología";
+            case "615" -> "Contaduria Pública";
+            case "616" -> "Gastronomia";
+            case "617" -> "Ciencias de la Educación";
             default -> "No especificada";
         };
     }

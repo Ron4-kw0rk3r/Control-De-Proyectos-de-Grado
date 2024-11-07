@@ -16,7 +16,8 @@ import jakarta.persistence.Table;
 public class Proyecto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long proyecto_id;
+    @Column(name = "proyecto_id")
+    private Long proyectoId;
     
     @Column(nullable = false)
     private String titulo;
@@ -44,12 +45,12 @@ public class Proyecto {
     }
 
     // Getters y Setters
-    public Long getProyecto_id() {
-        return proyecto_id;
+    public Long getProyectoId() {
+        return proyectoId;
     }
 
-    public void setProyecto_id(Long proyecto_id) {
-        this.proyecto_id = proyecto_id;
+    public void setProyectoId(Long proyectoId) {
+        this.proyectoId = proyectoId;
     }
 
     public String getTitulo() {
@@ -103,7 +104,7 @@ public class Proyecto {
     @Override
     public String toString() {
         return "Proyecto{" +
-                "proyecto_id=" + proyecto_id +
+                "proyectoId=" + proyectoId +
                 ", titulo='" + titulo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", estudiante=" + estudiante +

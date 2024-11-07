@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "login_usuario")
+@Table(name = "login_usuarios")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +20,7 @@ public class Usuario {
     private String apellido;
     
     @Column(nullable = false)
-    private String rol;  // ADMIN, ROOT_ADMIN, DOCENTE, ESTUDIANTE
-    
-    @Column
-    private String carrera;
+    private String rol;  // ESTUDIANTE, DOCENTE, ADMIN, ROOT_ADMIN
     
     @Column(nullable = false)
     private boolean activo = true;
@@ -80,14 +77,6 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public String getCarrera() {
-        return carrera;
-    }
-
-    public void setCarrera(String carrera) {
-        this.carrera = carrera;
-    }
-
     public boolean isActivo() {
         return activo;
     }
@@ -121,7 +110,6 @@ public class Usuario {
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", rol='" + rol + '\'' +
-                ", carrera='" + carrera + '\'' +
                 ", activo=" + activo +
                 ", fechaRegistro=" + fechaRegistro +
                 ", ultimoAcceso=" + ultimoAcceso +

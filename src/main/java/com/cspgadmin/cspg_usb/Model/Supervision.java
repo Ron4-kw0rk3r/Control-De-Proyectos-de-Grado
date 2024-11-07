@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 public class Supervision {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long supervision_id;
+    @Column(name = "supervision_id")
+    private Long supervisionId;
     
     @ManyToOne
     @JoinColumn(name = "proyecto_id")
@@ -28,11 +29,11 @@ public class Supervision {
 
     // Getters y Setters
     public Long getSupervision_id() {
-        return supervision_id;
+        return supervisionId;
     }
 
-    public void setSupervision_id(Long supervision_id) {
-        this.supervision_id = supervision_id;
+    public void setSupervision_id(Long supervisionId) {
+        this.supervisionId = supervisionId;
     }
 
     public Proyecto getProyecto() {

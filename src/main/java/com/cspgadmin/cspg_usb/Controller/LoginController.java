@@ -51,7 +51,7 @@ public class LoginController {
     private String determineRedirectUrl(String rol) {
         return switch (rol.toUpperCase()) {
             case "ROOT_ADMIN", "ADMIN" -> "/admrole";
-            case "DOCENTE" -> "/docente/main";
+            case "DOCENTE" -> "/docente/dashboard";
             case "ESTUDIANTE" -> "/main";
             default -> "/index";
         };

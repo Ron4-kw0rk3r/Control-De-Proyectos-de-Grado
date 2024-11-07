@@ -1,21 +1,26 @@
 package com.cspgadmin.cspg_usb.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 //import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 // The import statement for 'reques' seems to be incomplete. 
 // Assuming it was meant to be 'import org.springframework.web.bind.annotation.RequestMapping;'
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestMapping;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.sql.SQLException;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.cspgadmin.cspg_usb.Model.Proyecto;
+import com.cspgadmin.cspg_usb.Service.ProyectoService;
+import org.springframework.ui.Model;
+import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
 public class pointsController {
+
+    @Autowired
+    private ProyectoService proyectoService;
     
     @GetMapping(value = "/")
     public String home() {
@@ -72,6 +77,13 @@ public class pointsController {
     @RequestMapping(value = "/pages/educacion")
     public String educacion() {
         return "pages/educacion";
+    }
+
+    @RequestMapping(value = "/docente/dashboard")
+    public String docentedashboard(Model model, @RequestParam Long docenteId) {
+        List<Proyecto> proyectosActivos = proyectoService.getProyectosActivosByDocente(docenteId);
+        model.addAttribute("proyectosActivos", proyectosActivos);
+        return "docente/dashboard";
     }
     /*
 
