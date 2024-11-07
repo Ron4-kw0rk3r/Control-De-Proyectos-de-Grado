@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Administrativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen">
+        <!-- Sidebar -->
+        <aside class="fixed inset-y-0 left-0 bg-white shadow-lg max-h-screen w-60">
+            <div class="flex flex-col justify-between h-full">
+                <div class="flex-grow">
+                    <div class="px-4 py-6 text-center border-b">
+                        <h1 class="text-xl font-bold leading-none"><span class="text-yellow-700">CSPG</span> Admin</h1>
+                    </div>
+                    <div class="p-4">
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="/admin/dashboard" class="flex items-center bg-yellow-200 rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="text-lg mr-4" viewBox="0 0 16 16">
+                                        <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
+                                    </svg>Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/estudiantes" class="flex bg-white hover:bg-yellow-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="text-lg mr-4" viewBox="0 0 16 16">
+                                        <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1z"/>
+                                    </svg>Estudiantes
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/docentes" class="flex bg-white hover:bg-yellow-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="text-lg mr-4" viewBox="0 0 16 16">
+                                        <path d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z"/>
+                                        <path fill-rule="evenodd" d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z"/>
+                                    </svg>Docentes
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/administradores" class="flex bg-white hover:bg-yellow-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-lg mr-4" viewBox="0 0 16 16">
+                                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z"/>
+                                    </svg>Administradores
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <button type="button" class="inline-flex items-center justify-center h-9 px-4 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="" viewBox="0 0 16 16">
+                            <path d="M12 1a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2a1 1 0 0 1 1-1h8zm-2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                        </svg>
+                    </button> <span class="font-bold text-sm ml-2">Logout</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="ml-60 pt-16 max-h-screen overflow-auto">
+            <div class="px-6 py-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-white rounded-3xl p-8 mb-5">
+                        <h1 class="text-3xl font-bold mb-10">Dashboard</h1>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                            <div class="p-4 bg-yellow-100 rounded-xl">
+                                <h3 class="font-bold text-xl mb-2">Estudiantes</h3>
+                                <p class="text-gray-800">Total: <span th:text="${totalEstudiantes}">0</span></p>
+                            </div>
+                            <div class="p-4 bg-blue-100 rounded-xl">
+                                <h3 class="font-bold text-xl mb-2">Docentes</h3>
+                                <p class="text-gray-800">Total: <span th:text="${totalDocentes}">0</span></p>
+                            </div>
+                            <div class="p-4 bg-green-100 rounded-xl">
+                                <h3 class="font-bold text-xl mb-2">Administradores</h3>
+                                <p class="text-gray-800">Total: <span th:text="${totalAdmins}">0</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html> 

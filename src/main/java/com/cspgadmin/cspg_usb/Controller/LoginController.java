@@ -1,47 +1,69 @@
 package com.cspgadmin.cspg_usb.Controller;
 
+import com.cspgadmin.cspg_usb.Model.Usuario;
+import com.cspgadmin.cspg_usb.Service.UsuarioService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Optional;
 
 @Controller
 public class LoginController {
 
-    @PostMapping("/login")
-    public String login(@RequestParam("email") String email, RedirectAttributes redirectAttributes) {
-        // Procesa el correo electrónico
-        // Aquí puedes añadir lógica de autenticación
-        // Parse the email to get the domain
+    @Autowired
+    private UsuarioService usuarioService;
 
-        // Check if the email has a number before the '@' symbol
+    @GetMapping("/index")
+    public String showLoginPage() {
+        return "index";
+    }
 
-        String domain = email.substring(email.indexOf("@") + 1);
-
-        // Check the user's role based on the domain
-        String role;
-
-        String localPart = email.substring(0, email.indexOf("@"));
-        if (!localPart.matches(".*\\d.*")) {
-            role = "administrador";
-        }
-        
-        if (domain.equals("usalesiana.edu.bo")) {
-            role = "estudiante";    
+    @PostMapping("/index")
+    public String handleLogin(@RequestParam("email") String email, 
+                            HttpSession session,
+                            RedirectAttributes redirectAttributes) {
+        try {
+            Optional<Usuario> usuario = usuarioService.validateUserByEmail(email);
             
-        } else if (domain.equals("servicios.usalesiana.edu.bo")) { // docente
-            role = "servicios";
-        } else {
-            redirectAttributes.addFlashAttribute("message", "Acceso denegado: dominio no reconocido.");
-            return "redirect:/login";
+            if (usuario.isPresent()) {
+                Usuario user = usuario.get();
+                session.setAttribute("usuario", user);
+                session.setAttribute("rol", user.getRol());
+                session.setMaxInactiveInterval(3600); // 1 hora
+                
+                return "redirect:" + determineRedirectUrl(user.getRol());
+            }
+            
+            redirectAttributes.addFlashAttribute("error", "Correo electrónico no válido o usuario inactivo");
+            return "redirect:/index";
+                
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error interno del servidor");
+            return "redirect:/index";
         }
+    }
 
-        // Add the role to the redirect attributes
-        redirectAttributes.addFlashAttribute("role", role);
-        // Añade un mensaje de éxito o error
-        redirectAttributes.addFlashAttribute("message", "Inicio de sesión exitoso para: " + email);
+    private String determineRedirectUrl(String rol) {
+        return switch (rol.toUpperCase()) {
+            case "ROOT_ADMIN", "ADMIN" -> "/admrole";
+            case "DOCENTE" -> "/docente/main";
+            case "ESTUDIANTE" -> "/main";
+            default -> "/index";
+        };
+    }
 
-        // Redirige a la página de inicio o a otra página
-        return "redirect:/home";
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        redirectAttributes.addFlashAttribute("message", "Sesión cerrada correctamente");
+        return "redirect:/index";
     }
 }

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestión de Permisos - CSPG USB</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <div class="ml-64 p-8">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-semibold text-gray-800">Gestión de Permisos</h1>
+                <button onclick="guardarCambios()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                    <i class="fas fa-save mr-2"></i>Guardar Cambios
+                </button>
+            </div>
+
+            <!-- Roles y Permisos -->
+            <div class="grid grid-cols-1 gap-6">
+                <!-- ROOT_ADMIN -->
+                <div class="bg-white p-6 rounded-lg shadow border">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">ROOT_ADMIN</h3>
+                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">Acceso Total</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="space-y-2">
+                            <h4 class="font-medium text-gray-700">Gestión de Usuarios</h4>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked disabled>
+                                <span class="ml-2 text-sm">Crear usuarios</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked disabled>
+                                <span class="ml-2 text-sm">Modificar usuarios</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked disabled>
+                                <span class="ml-2 text-sm">Eliminar usuarios</span>
+                            </label>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-medium text-gray-700">Gestión de Proyectos</h4>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked disabled>
+                                <span class="ml-2 text-sm">Aprobar proyectos</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked disabled>
+                                <span class="ml-2 text-sm">Asignar tutores</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked disabled>
+                                <span class="ml-2 text-sm">Gestionar defensas</span>
+                            </label>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-medium text-gray-700">Configuración</h4>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked disabled>
+                                <span class="ml-2 text-sm">Configuración general</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked disabled>
+                                <span class="ml-2 text-sm">Gestión de permisos</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked disabled>
+                                <span class="ml-2 text-sm">Ver logs</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADMIN -->
+                <div class="bg-white p-6 rounded-lg shadow border">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">ADMIN</h3>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Acceso Limitado</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="space-y-2">
+                            <h4 class="font-medium text-gray-700">Gestión de Usuarios</h4>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Crear usuarios</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Modificar usuarios</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox">
+                                <span class="ml-2 text-sm">Eliminar usuarios</span>
+                            </label>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-medium text-gray-700">Gestión de Proyectos</h4>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Aprobar proyectos</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Asignar tutores</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Gestionar defensas</span>
+                            </label>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-medium text-gray-700">Configuración</h4>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox">
+                                <span class="ml-2 text-sm">Configuración general</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox">
+                                <span class="ml-2 text-sm">Gestión de permisos</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Ver logs</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOCENTE -->
+                <div class="bg-white p-6 rounded-lg shadow border">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">DOCENTE</h3>
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Acceso Específico</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="space-y-2">
+                            <h4 class="font-medium text-gray-700">Gestión de Proyectos</h4>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Ver proyectos asignados</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Calificar proyectos</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Agregar observaciones</span>
+                            </label>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-medium text-gray-700">Defensas</h4>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Ver calendario</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Registrar notas</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Generar actas</span>
+                            </label>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-medium text-gray-700">Reportes</h4>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Ver estadísticas</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Generar informes</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ESTUDIANTE -->
+                <div class="bg-white p-6 rounded-lg shadow border">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">ESTUDIANTE</h3>
+                        <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">Acceso Básico</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="space-y-2">
+                            <h4 class="font-medium text-gray-700">Proyectos</h4>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Ver proyecto propio</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Subir documentos</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Ver observaciones</span>
+                            </label>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-medium text-gray-700">Defensas</h4>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Ver fecha de defensa</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Ver tribunal</span>
+                            </label>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-medium text-gray-700">Reportes</h4>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Ver calificaciones</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2 text-sm">Ver historial</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="mt-6 flex justify-end space-x-4">
+                <button onclick="restaurarDefecto()" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">
+                    <i class="fas fa-undo mr-2"></i>Restaurar Valores por Defecto
+                </button>
+                <button onclick="guardarCambios()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                    <i class="fas fa-save mr-2"></i>Guardar Cambios
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function guardarCambios() {
+            // Implementar lógica de guardado
+            alert('Cambios guardados exitosamente');
+        }
+
+        function restaurarDefecto() {
+            if (confirm('¿Está seguro de restaurar los valores por defecto?')) {
+                // Implementar lógica de restauración
+                alert('Permisos restaurados a valores por defecto');
+            }
+        }
+    </script>
+</body>
+</html> 

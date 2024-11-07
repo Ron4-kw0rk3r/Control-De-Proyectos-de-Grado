@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Estadísticas - CSPG USB</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="ml-64 p-8">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-semibold text-gray-800">Estadísticas del Sistema</h1>
+                <div class="flex space-x-4">
+                    <select id="periodoSelector" class="px-4 py-2 border rounded-lg">
+                        <option value="semana">Última Semana</option>
+                        <option value="mes">Último Mes</option>
+                        <option value="trimestre">Último Trimestre</option>
+                        <option value="anio">Último Año</option>
+                    </select>
+                    <button onclick="exportarEstadisticas()" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
+                        <i class="fas fa-download mr-2"></i>Exportar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Gráficos -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- Proyectos por Estado -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold mb-4">Proyectos por Estado</h3>
+                    <canvas id="proyectosEstadoChart"></canvas>
+                </div>
+
+                <!-- Proyectos por Carrera -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold mb-4">Proyectos por Carrera</h3>
+                    <canvas id="proyectosCarreraChart"></canvas>
+                </div>
+
+                <!-- Tiempo Promedio de Completitud -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold mb-4">Tiempo Promedio de Completitud</h3>
+                    <canvas id="tiempoCompletitudChart"></canvas>
+                </div>
+
+                <!-- Distribución de Calificaciones -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold mb-4">Distribución de Calificaciones</h3>
+                    <canvas id="calificacionesChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Métricas Clave -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h4 class="text-sm font-semibold text-gray-500">Tasa de Aprobación</h4>
+                    <p class="text-2xl font-bold text-green-600">85%</p>
+                    <p class="text-sm text-gray-500">+5% vs periodo anterior</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h4 class="text-sm font-semibold text-gray-500">Tiempo Promedio</h4>
+                    <p class="text-2xl font-bold text-blue-600">6.5 meses</p>
+                    <p class="text-sm text-gray-500">-0.5 meses vs periodo anterior</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h4 class="text-sm font-semibold text-gray-500">Proyectos Activos</h4>
+                    <p class="text-2xl font-bold text-purple-600">124</p>
+                    <p class="text-sm text-gray-500">+12 vs periodo anterior</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h4 class="text-sm font-semibold text-gray-500">Calificación Promedio</h4>
+                    <p class="text-2xl font-bold text-yellow-600">85/100</p>
+                    <p class="text-sm text-gray-500">+3 pts vs periodo anterior</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuración de gráficos
+        function initCharts() {
+            // Proyectos por Estado
+            new Chart(document.getElementById('proyectosEstadoChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['En Proceso', 'Completados', 'Pendientes', 'Suspendidos'],
+                    datasets: [{
+                        data: [45, 30, 15, 10],
+                        backgroundColor: [
+                            '#60A5FA',
+                            '#34D399',
+                            '#FBBF24',
+                            '#F87171'
+                        ]
+                    }]
+                }
+            });
+
+            // Proyectos por Carrera
+            new Chart(document.getElementById('proyectosCarreraChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Ing. Sistemas', 'Ing. Comercial', 'Derecho', 'Psicología'],
+                    datasets: [{
+                        label: 'Número de Proyectos',
+                        data: [65, 45, 35, 28],
+                        backgroundColor: '#60A5FA'
+                    }]
+                }
+            });
+
+            // Tiempo Promedio de Completitud
+            new Chart(document.getElementById('tiempoCompletitudChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Meses',
+                        data: [6.8, 6.7, 6.5, 6.3, 6.4, 6.5],
+                        borderColor: '#34D399'
+                    }]
+                }
+            });
+
+            // Distribución de Calificaciones
+            new Chart(document.getElementById('calificacionesChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['60-69', '70-79', '80-89', '90-100'],
+                    datasets: [{
+                        label: 'Cantidad de Proyectos',
+                        data: [10, 25, 45, 20],
+                        backgroundColor: '#8B5CF6'
+                    }]
+                }
+            });
+        }
+
+        // Inicializar gráficos al cargar la página
+        document.addEventListener('DOMContentLoaded', initCharts);
+
+        // Función para exportar estadísticas
+        function exportarEstadisticas() {
+            // Implementar lógica de exportación
+            alert('Exportando estadísticas...');
+        }
+
+        // Actualizar datos cuando cambia el periodo
+        document.getElementById('periodoSelector').addEventListener('change', function() {
+            // Implementar actualización de datos según el periodo seleccionado
+            console.log('Periodo seleccionado:', this.value);
+        });
+    </script>
+</body>
+</html> 

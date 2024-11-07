@@ -19,7 +19,7 @@ public class pointsController {
     
     @GetMapping(value = "/")
     public String home() {
-        return "index";
+        return "cspgUSB";
     }
 
     @RequestMapping(value = "/index")
@@ -73,7 +73,7 @@ public class pointsController {
     public String educacion() {
         return "pages/educacion";
     }
-
+    /*
 
     @RequestMapping(value = "/logout", method = {RequestMethod.POST, RequestMethod.GET})
     public String logout(HttpServletRequest request, HttpServletResponse response) {
@@ -101,16 +101,36 @@ public class pointsController {
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);
 
+        request.getSession(true);
+
+        // Clear Spring Security context
+        /*SecurityContextHolder.clearContext();
+        
+        // Clear authentication
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
         // Redirect to the index page
         return "redirect:/";
+    } 
+    */
+
+
+    @RequestMapping(value = "/dashboard")
+    public String dashboard() {
+        return "admin/dashboard";
     }
 
 
-    @RequestMapping(value = "/adminrole")
-    public String adminrole() {
+
+
+
+
+    @RequestMapping(value = "/admrole")
+    public String admrole() {
         return "pages/adminrole";
     }
-
 
     @RequestMapping(value = "/admsession")
     public String admsession() {
@@ -122,6 +142,10 @@ public class pointsController {
         return "pages/asignestudent";
     }
 
+    @RequestMapping(value = "/login")
+    public String login() {
+        return "index";
+    }
 
     /* 
     @GetMapping("/main")
@@ -138,8 +162,14 @@ public class pointsController {
     /// configuracion del request
 
     
+    @RequestMapping(value = "/docente/board")
+    public String docenteboard() {
+        return "pages/docenteboard";
+    }
 
-
-
+    @RequestMapping(value = "/estudiante/board")
+    public String estudianteboard() {
+        return "pages/estudianteboard";
+    }
 
 }

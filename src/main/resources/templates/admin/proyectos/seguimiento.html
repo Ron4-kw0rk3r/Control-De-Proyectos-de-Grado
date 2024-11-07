@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Seguimiento de Proyectos - CSPG USB</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <div class="ml-64 p-8">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-semibold text-gray-800">Seguimiento de Proyectos</h1>
+                <div class="flex space-x-4">
+                    <button onclick="openModal('filtros')" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">
+                        <i class="fas fa-filter mr-2"></i>Filtros
+                    </button>
+                    <button onclick="exportarSeguimiento()" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
+                        <i class="fas fa-download mr-2"></i>Exportar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filtros activos -->
+            <div class="mb-6 flex flex-wrap gap-2">
+                <!-- Filtros aquí -->
+            </div>
+
+            <!-- Tabla de Seguimiento -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Proyecto
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Estudiante
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Tutor
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Progreso
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Última Actualización
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Acciones
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <!-- Contenido dinámico -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Paginación -->
+            <div class="mt-4 flex items-center justify-between">
+                <!-- Paginación aquí -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para detalles de seguimiento -->
+    <div id="seguimientoModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden">
+        <div class="relative top-20 mx-auto p-5 border w-3/4 shadow-lg rounded-md bg-white">
+            <!-- Contenido del modal -->
+        </div>
+    </div>
+
+    <script>
+        // Funciones JavaScript aquí
+    </script>
+</body>
+</html> 

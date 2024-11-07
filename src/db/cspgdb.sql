@@ -34,6 +34,77 @@ CREATE TABLE Usuarios (
     actualizado_up TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+
+-- Crear la tabla login_usuarios
+CREATE TABLE login_usuarios (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    rol VARCHAR(20) NOT NULL CHECK (rol IN ('ESTUDIANTE', 'DOCENTE', 'ADMIN', 'ROOT_ADMIN')),
+    activo BOOLEAN DEFAULT true,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ultimo_acceso TIMESTAMP
+);
+
+-- Crear la tabla usersession
+CREATE TABLE login_usersession (
+    id SERIAL PRIMARY KEY,
+    session_id VARCHAR(255) UNIQUE NOT NULL,
+    usuario_id BIGINT REFERENCES usuarios(id),
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ultimo_acceso TIMESTAMP,
+    activa BOOLEAN DEFAULT true
+);
+
+-- Crear índices para mejorar el rendimiento
+CREATE INDEX idx_usuarios_email ON login_usuarios(email);
+CREATE INDEX idx_usuarios_rol ON login_usuarios(rol);
+CREATE INDEX idx_usersession_usuario ON login_usersession(usuario_id);
+CREATE INDEX idx_usersession_activa ON login_usersession(activa);
+
+-- Insertar algunos usuarios de prueba
+-- ROOT ADMIN
+INSERT INTO login_usuarios (email, nombre, apellido, rol, activo, fecha_registro)
+VALUES ('usb.root.2024@root.usalesiana.edu.bo', 'Root', 'Administrator', 'ROOT_ADMIN', true, CURRENT_TIMESTAMP);
+
+-- ADMIN
+INSERT INTO login_usuarios (email, nombre, apellido, rol, activo, fecha_registro)
+VALUES ('admin.sistema@admin.usalesiana.edu.bo', 'Admin', 'Sistema', 'ADMIN', true, CURRENT_TIMESTAMP);
+
+-- DOCENTE
+INSERT INTO login_usuarios (email, nombre, apellido, rol, activo, fecha_registro)
+VALUES ('juan.perez.611ru@services.usalesiana.edu.bo', 'Juan', 'Perez', 'DOCENTE', true, CURRENT_TIMESTAMP);
+
+-- ESTUDIANTE
+INSERT INTO login_usuarios (email, nombre, apellido, rol, activo, fecha_registro)
+VALUES ('maria.garcia.611ru@usalesiana.edu.bo', 'Maria', 'Garcia', 'ESTUDIANTE', true, CURRENT_TIMESTAMP);
+
+-- Crear función para actualizar último acceso
+CREATE OR REPLACE FUNCTION update_ultimo_acceso()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.ultimo_acceso = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Crear trigger para actualizar último acceso en usuarios
+CREATE TRIGGER trigger_update_ultimo_acceso
+BEFORE UPDATE ON login_usuarios
+FOR EACH ROW
+WHEN (OLD.* IS DISTINCT FROM NEW.*)
+EXECUTE FUNCTION update_ultimo_acceso();
+
+-- Crear trigger para actualizar último acceso en usersession
+CREATE TRIGGER trigger_update_ultimo_acceso_session
+BEFORE UPDATE ON login_usersession
+FOR EACH ROW
+WHEN (OLD.* IS DISTINCT FROM NEW.*)
+EXECUTE FUNCTION update_ultimo_acceso();
+
+
+
 CREATE TABLE Sesiones (
     sesion_id SERIAL PRIMARY KEY,
     usuario_id INT NOT NULL,

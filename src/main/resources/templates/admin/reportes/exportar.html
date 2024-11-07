@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Exportar Datos - CSPG USB</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <div class="ml-64 p-8">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-semibold text-gray-800">Exportar Datos del Sistema</h1>
+            </div>
+
+            <!-- Secciones de Exportación -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Proyectos -->
+                <div class="bg-white p-6 rounded-lg shadow border">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">Proyectos</h3>
+                        <div class="flex space-x-2">
+                            <button onclick="exportarDatos('proyectos', 'excel')" class="text-green-600 hover:text-green-800">
+                                <i class="fas fa-file-excel fa-lg"></i>
+                            </button>
+                            <button onclick="exportarDatos('proyectos', 'pdf')" class="text-red-600 hover:text-red-800">
+                                <i class="fas fa-file-pdf fa-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox" checked>
+                            <span class="ml-2">Datos básicos</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox" checked>
+                            <span class="ml-2">Historial de cambios</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox">
+                            <span class="ml-2">Documentos adjuntos</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Usuarios -->
+                <div class="bg-white p-6 rounded-lg shadow border">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">Usuarios</h3>
+                        <div class="flex space-x-2">
+                            <button onclick="exportarDatos('usuarios', 'excel')" class="text-green-600 hover:text-green-800">
+                                <i class="fas fa-file-excel fa-lg"></i>
+                            </button>
+                            <button onclick="exportarDatos('usuarios', 'pdf')" class="text-red-600 hover:text-red-800">
+                                <i class="fas fa-file-pdf fa-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox" checked>
+                            <span class="ml-2">Información personal</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox">
+                            <span class="ml-2">Historial de actividad</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox">
+                            <span class="ml-2">Roles y permisos</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Defensas -->
+                <div class="bg-white p-6 rounded-lg shadow border">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">Defensas</h3>
+                        <div class="flex space-x-2">
+                            <button onclick="exportarDatos('defensas', 'excel')" class="text-green-600 hover:text-green-800">
+                                <i class="fas fa-file-excel fa-lg"></i>
+                            </button>
+                            <button onclick="exportarDatos('defensas', 'pdf')" class="text-red-600 hover:text-red-800">
+                                <i class="fas fa-file-pdf fa-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox" checked>
+                            <span class="ml-2">Programación</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox" checked>
+                            <span class="ml-2">Calificaciones</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox">
+                            <span class="ml-2">Observaciones</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Opciones de Exportación -->
+            <div class="mt-8 bg-white p-6 rounded-lg shadow border">
+                <h3 class="text-lg font-semibold mb-4">Opciones de Exportación</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Periodo</label>
+                        <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            <option>Todo el historial</option>
+                            <option>Último mes</option>
+                            <option>Último trimestre</option>
+                            <option>Último año</option>
+                            <option>Personalizado</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Formato</label>
+                        <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            <option>Excel (.xlsx)</option>
+                            <option>PDF (.pdf)</option>
+                            <option>CSV (.csv)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Compresión</label>
+                        <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            <option>Sin comprimir</option>
+                            <option>ZIP</option>
+                            <option>RAR</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botón de Exportación -->
+            <div class="mt-6 flex justify-end">
+                <button onclick="exportarTodo()" class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 flex items-center">
+                    <i class="fas fa-download mr-2"></i>
+                    Exportar Selección
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Progreso -->
+    <div id="progresoModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">Exportando Datos</h3>
+                <div class="mb-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div id="progressBar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+                    <p id="progressText" class="text-sm text-gray-600 mt-2">Preparando archivos...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function exportarDatos(tipo, formato) {
+            // Implementar lógica de exportación específica
+            console.log(`Exportando ${tipo} en formato ${formato}`);
+        }
+
+        function exportarTodo() {
+            const modal = document.getElementById('progresoModal');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            
+            modal.classList.remove('hidden');
+            
+            // Simulación de progreso
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 10;
+                progressBar.style.width = `${progress}%`;
+                progressText.textContent = `Exportando... ${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        modal.classList.add('hidden');
+                        alert('Exportación completada');
+                    }, 500);
+                }
+            }, 500);
+        }
+    </script>
+</body>
+</html> 

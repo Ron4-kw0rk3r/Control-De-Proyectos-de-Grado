@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Configuración General - CSPG USB</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <div class="ml-64 p-8">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-semibold text-gray-800">Configuración General del Sistema</h1>
+                <button onclick="guardarCambios()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                    <i class="fas fa-save mr-2"></i>Guardar Cambios
+                </button>
+            </div>
+
+            <!-- Secciones de Configuración -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Configuración General -->
+                <div class="bg-white p-6 rounded-lg shadow border">
+                    <h3 class="text-lg font-semibold mb-4">Configuración General</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Nombre de la Institución</label>
+                            <input type="text" value="Universidad Salesiana de Bolivia" 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">URL del Sistema</label>
+                            <input type="text" value="https://cspg.usalesiana.edu.bo" 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Zona Horaria</label>
+                            <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                                <option>America/La_Paz</option>
+                                <option>UTC</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Configuración de Correo -->
+                <div class="bg-white p-6 rounded-lg shadow border">
+                    <h3 class="text-lg font-semibold mb-4">Configuración de Correo</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Servidor SMTP</label>
+                            <input type="text" value="smtp.usalesiana.edu.bo" 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Puerto SMTP</label>
+                            <input type="number" value="587" 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Correo del Sistema</label>
+                            <input type="email" value="cspg@usalesiana.edu.bo" 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Configuración de Seguridad -->
+                <div class="bg-white p-6 rounded-lg shadow border">
+                    <h3 class="text-lg font-semibold mb-4">Configuración de Seguridad</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2">Habilitar autenticación de dos factores</span>
+                            </label>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Tiempo de sesión (minutos)</label>
+                            <input type="number" value="60" 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Intentos máximos de inicio de sesión</label>
+                            <input type="number" value="3" 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Configuración de Notificaciones -->
+                <div class="bg-white p-6 rounded-lg shadow border">
+                    <h3 class="text-lg font-semibold mb-4">Configuración de Notificaciones</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2">Notificaciones por correo</span>
+                            </label>
+                        </div>
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="ml-2">Notificaciones del sistema</span>
+                            </label>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Frecuencia de notificaciones</label>
+                            <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                                <option>Inmediata</option>
+                                <option>Diaria</option>
+                                <option>Semanal</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="mt-6 flex justify-end space-x-4">
+                <button onclick="restaurarDefecto()" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">
+                    <i class="fas fa-undo mr-2"></i>Restaurar Valores por Defecto
+                </button>
+                <button onclick="probarConfiguracion()" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
+                    <i class="fas fa-check mr-2"></i>Probar Configuración
+                </button>
+                <button onclick="guardarCambios()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                    <i class="fas fa-save mr-2"></i>Guardar Cambios
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación -->
+    <div id="confirmModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">¿Guardar cambios?</h3>
+                <div class="mt-2 px-7 py-3">
+                    <p class="text-sm text-gray-500">
+                        Los cambios realizados afectarán el funcionamiento del sistema. ¿Desea continuar?
+                    </p>
+                </div>
+                <div class="flex justify-center mt-4 space-x-4">
+                    <button onclick="closeModal()" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300">
+                        Cancelar
+                    </button>
+                    <button onclick="confirmarGuardado()" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                        Confirmar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function guardarCambios() {
+            document.getElementById('confirmModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('confirmModal').classList.add('hidden');
+        }
+
+        function confirmarGuardado() {
+            // Implementar lógica de guardado
+            closeModal();
+            // Mostrar mensaje de éxito
+            alert('Configuración guardada exitosamente');
+        }
+
+        function restaurarDefecto() {
+            if (confirm('¿Está seguro de restaurar los valores por defecto?')) {
+                // Implementar lógica de restauración
+                alert('Valores restaurados exitosamente');
+            }
+        }
+
+        function probarConfiguracion() {
+            // Implementar lógica de prueba
+            alert('Probando configuración...');
+        }
+    </script>
+</body>
+</html> 

@@ -1,19 +1,14 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.3.4'
-	id 'io.spring.dependency-management' version '1.1.6'
-	
-	//id 'org.springframework.boot.starter.thymeleaf' version '3.3.4'
-	
+	id 'org.springframework.boot' version '3.1.5'
+	id 'io.spring.dependency-management' version '1.1.3'
 }
 
 group = 'com.cspgadmin'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
+	sourceCompatibility = '17'
 }
 
 repositories {
@@ -21,18 +16,25 @@ repositories {
 }
 
 dependencies {
+	// Spring Boot Starters
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'io.github.wimdeblauwe:htmx-spring-boot:3.5.0'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	// JWT
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 	
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
-	
+	// Database
 	runtimeOnly 'org.postgresql:postgresql'
+	
+	// Development Tools
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	
+	// Test Dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {

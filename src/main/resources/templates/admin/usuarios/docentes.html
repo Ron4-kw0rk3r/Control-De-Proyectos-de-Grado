@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestión de Docentes - CSPG USB</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Contenido principal -->
+    <div class="ml-64 p-8">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-semibold text-gray-800">Gestión de Docentes</h1>
+                <button onclick="openModal('agregar')" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                    <i class="fas fa-plus mr-2"></i>Agregar Docente
+                </button>
+            </div>
+
+            <!-- Filtros -->
+            <div class="mb-6 flex gap-4">
+                <div class="flex-1">
+                    <input type="text" placeholder="Buscar docente..." class="w-full px-4 py-2 border rounded-lg">
+                </div>
+                <select class="px-4 py-2 border rounded-lg">
+                    <option value="">Todas las carreras</option>
+                    <option value="sistemas">Ingeniería de Sistemas</option>
+                    <option value="comercial">Ingeniería Comercial</option>
+                    <!-- Más opciones... -->
+                </select>
+                <select class="px-4 py-2 border rounded-lg">
+                    <option value="">Estado</option>
+                    <option value="activo">Activo</option>
+                    <option value="inactivo">Inactivo</option>
+                </select>
+            </div>
+
+            <!-- Tabla de Docentes -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Nombre
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Email
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Carrera
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Estado
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Acciones
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr th:each="docente : ${docentes}">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img class="h-10 w-10 rounded-full" th:src="${docente.foto}" alt="">
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900" th:text="${docente.nombre + ' ' + docente.apellido}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900" th:text="${docente.email}"></div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900" th:text="${docente.carrera}"></div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+                                    th:classappend="${docente.activo ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}"
+                                    th:text="${docente.activo ? 'Activo' : 'Inactivo'}">
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <button onclick="openModal('editar', this)" th:data-id="${docente.id}"
+                                        class="text-indigo-600 hover:text-indigo-900 mr-3">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button onclick="toggleEstado(this)" th:data-id="${docente.id}"
+                                        class="text-yellow-600 hover:text-yellow-900 mr-3">
+                                    <i class="fas fa-power-off"></i>
+                                </button>
+                                <button onclick="eliminarDocente(this)" th:data-id="${docente.id}"
+                                        class="text-red-600 hover:text-red-900">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Paginación -->
+            <div class="mt-4 flex items-center justify-between">
+                <div class="flex-1 flex justify-between sm:hidden">
+                    <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        Anterior
+                    </a>
+                    <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        Siguiente
+                    </a>
+                </div>
+                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                    <div>
+                        <p class="text-sm text-gray-700">
+                            Mostrando
+                            <span class="font-medium">1</span>
+                            a
+                            <span class="font-medium">10</span>
+                            de
+                            <span class="font-medium">97</span>
+                            resultados
+                        </p>
+                    </div>
+                    <div>
+                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+                            <!-- Botones de paginación -->
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para agregar/editar docente -->
+    <div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <h3 class="text-lg font-medium text-gray-900 mb-4" id="modalTitle">Agregar Docente</h3>
+                <form id="docenteForm" class="space-y-4">
+                    <input type="hidden" id="docenteId">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" required
+                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Apellido</label>
+                        <input type="text" id="apellido" name="apellido" required
+                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" name="email" required
+                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Carrera</label>
+                        <select id="carrera" name="carrera" required
+                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3">
+                            <option value="">Seleccione una carrera</option>
+                            <option value="sistemas">Ingeniería de Sistemas</option>
+                            <option value="comercial">Ingeniería Comercial</option>
+                            <!-- Más opciones... -->
+                        </select>
+                    </div>
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" onclick="closeModal()"
+                                class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300">
+                            Cancelar
+                        </button>
+                        <button type="submit"
+                                class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(tipo, button = null) {
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modalTitle');
+            const form = document.getElementById('docenteForm');
+            
+            modal.classList.remove('hidden');
+            
+            if (tipo === 'agregar') {
+                modalTitle.textContent = 'Agregar Docente';
+                form.reset();
+            } else {
+                modalTitle.textContent = 'Editar Docente';
+                const id = button.getAttribute('data-id');
+                // Aquí cargarías los datos del docente
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        function toggleEstado(button) {
+            const id = button.getAttribute('data-id');
+            // Implementar lógica para cambiar estado
+        }
+
+        function eliminarDocente(button) {
+            if (confirm('¿Está seguro de eliminar este docente?')) {
+                const id = button.getAttribute('data-id');
+                // Implementar lógica de eliminación
+            }
+        }
+
+        // Manejar envío del formulario
+        document.getElementById('docenteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Implementar lógica de guardado
+            closeModal();
+        });
+    </script>
+</body>
+</html> 
